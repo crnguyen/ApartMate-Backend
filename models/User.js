@@ -22,10 +22,10 @@ const UserSchema = new Schema({
         type: String,
         default: ''
     },
-    group_id: {
+    group_id: [{
         type: String,
         default: []
-    },
+    }],
     date: {
         type: Date,
         default: Date.now()

@@ -3,9 +3,10 @@ const db = require('../models')
 
 // Route for Groups Home (display users)
 router.get('/:id', (req, res) => {
-  db.User.find({groupId: { $in: [req.params.id]}})
-  .then(foundUsers => {
-    res.send(foundUsers)
+  db.Group.findOne({_id: req.params.id})
+  .then(foundGroup => {
+    console.log(foundGroup.users)
+    res.send(foundGroup.users)
   })
   .catch(err => {
     console.log("This was the error: " + err)
@@ -27,6 +28,20 @@ router.post('/create', (req, res) => {
   .catch((err) => {
     console.log("This was the error: " + err);
     res.status(503).send({ message: "You forgot to feed your Mongo" });
+  });
+})
+
+router.put('/add/:id', (req, res) => {
+  db.Group.updateOne(
+    { _id: req.params.id },
+    { $push: { users: req.body.user }}
+  )
+  .then(updatedGroup => {
+    res.status(201).send(updatedGroup)
+  })
+  .catch((err) => {
+    console.log("🗑error: ", err);
+    res.status(503).send({ message: "Mongo don't like that update 🍖" });
   });
 })
 
