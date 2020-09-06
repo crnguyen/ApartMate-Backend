@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const db = require('../models')
 
-// Route for Groups Home (display users)
+// Route for Displaying All Users Belonging to the Group
 router.get('/:id', (req, res) => {
   db.Group.findOne({_id: req.params.id})
   .then(foundGroup => {
@@ -14,15 +14,20 @@ router.get('/:id', (req, res) => {
   })
 })
 
+// Route to Create Group
 router.post('/create', (req, res) => {
   // see if req.user.id can hold the same values
   let groupPin = Math.random().toString().substr(2, 4);
   db.Group.create({
     name: req.body.name,
-    users: req.body.users,
+    users: req.body.user,
     pin: groupPin,
   })
   .then(createdGroup => {
+    db.User.findOneAndUpdate(
+      {_id: req.body.user},
+      { $push: {group_id: createdGroup._id}}
+      )
     res.status(201).send(createdGroup)
   })
   .catch((err) => {
@@ -31,12 +36,17 @@ router.post('/create', (req, res) => {
   });
 })
 
+// Route to Add a User to An Existing Group
 router.put('/add/:id', (req, res) => {
   db.Group.updateOne(
     { _id: req.params.id },
     { $push: { users: req.body.user }}
   )
   .then(updatedGroup => {
+    db.User.findOneAndUpdate(
+      { _id: req.body.user },
+      { $push: { group_id: updatedGroup._id } }
+    );
     res.status(201).send(updatedGroup)
   })
   .catch((err) => {
