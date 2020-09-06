@@ -23,7 +23,7 @@ const UserSchema = new Schema({
         default: ''
     },
     group_id: [{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         default: []
     }],
     date: {
