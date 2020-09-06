@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const GroupSchema = new Schema({
     users: [{
-        type: Number
+        type: String
     }],
     name: {
         type: String,
