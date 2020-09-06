@@ -18,3 +18,5 @@ db.on('error', (error) => {
 })
 
 module.exports.User = require('./User')
+module.exports.Group = require('./Group')
+module.exports.Chore = require('./Chore')

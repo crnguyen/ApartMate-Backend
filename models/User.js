@@ -14,6 +14,18 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    phone: {
+        type: String,
+        required: true
+    },
+    venmo: {
+        type: String,
+        default: ''
+    },
+    group_id: {
+        type: String,
+        default: []
+    },
     date: {
         type: Date,
         default: Date.now()
