@@ -29,6 +29,7 @@ const ChoreSchema = new Schema({
   },
   isDone: {
     type: Boolean,
+    default: false
   },
   isRecurring: {
     type: Boolean,
