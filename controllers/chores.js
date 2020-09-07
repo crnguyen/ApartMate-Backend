@@ -4,6 +4,7 @@ const db = require('../models')
 // {GET} get all chores for current user
 router.get('/', (req, res) => {
     //find chores associated to userid
+    // db.Chore.find({group_id: })
     //send to page
     
 })
@@ -24,8 +25,8 @@ router.post('/new', (req, res) => {
         res.send(createdChore)
     })
     .catch(err => {
-        console.log("This was the error: " + err)
-        res.status(503).send({message: "You forgot to feed your Mongo"})
+        console.log("This was the error: ", err)
+        res.status(503).send({message: "Mongo don't like chores 😡"})
     })
 })
 

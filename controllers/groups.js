@@ -18,7 +18,7 @@ router.get('/:groupId', (req, res) => {
     res.send(foundUsers)
   })
   .catch(err => {
-    console.log("This was the error: " + err)
+    console.log("This was the error: ", err)
     res.status(503).send({message: "You forgot to feed your Mongo"})
   })
 })
@@ -67,6 +67,24 @@ router.put('/add/:groupId', (req, res) => {
   .catch((err) => {
     console.log("🗑error: ", err)
     res.status(503).send({ message: "Mongo don't like that update 🍖" })
+  })
+})
+
+//delete route
+router.delete('/delete/:groupId', (req, res) => {
+  db.Group.findByIdAndDelete(req.params.groupId)
+  // .then(
+  //   db.User.find({group_id: {$in: req.params.groupId}})
+  // )
+  // .then(foundUsers => {
+  //   console.log(foundUsers)
+  // })
+  .then(
+    res.status(201).send({ message: "Group Deleted" })
+  )
+  .catch((err) => {
+    console.log("🗑error: ", err)
+    res.status(503).send({ message: "Mongo don't like that delete 🍖" })
   })
 })
 
