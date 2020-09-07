@@ -33,7 +33,6 @@ router.post('/create', (req, res) => {
     pin: groupPin,
   })
   .then(createdGroup => {
-    console.log(createdGroup._id)
     db.User.findByIdAndUpdate(
       {_id: req.body.user},
       {$push: {group_id: createdGroup._id}},
@@ -52,14 +51,16 @@ router.post('/create', (req, res) => {
 
 // Route to Add a User to An Existing Group
 router.put('/add/:groupId', (req, res) => {
-  db.Group.updateOne(
+  db.Group.findOneAndUpdate(
     { _id: req.params.groupId },
-    { $push: { users: req.body.user }}
+    { $push: { users: req.body.user }},
+    {"new": true}
   )
   .then(updatedGroup => {
     db.User.findOneAndUpdate(
       { _id: req.body.user },
-      { $push: { group_id: updatedGroup._id } }
+      { $push: { group_id: updatedGroup._id }},
+      {"new": true}
     )
     res.status(201).send(updatedGroup)
   })
