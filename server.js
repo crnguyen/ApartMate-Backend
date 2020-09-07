@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 app.use("/groups", require("./controllers/groups"));
+app.use("/chores", require("./controllers/chores"));
 
 //passport middleware
 app.use(passport.initialize())
