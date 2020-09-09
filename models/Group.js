@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const GroupSchema = new Schema({
     users: [{
-        type: String
+        type: mongoose.Schema.Types.ObjectId
     }],
     name: {
         type: String,
@@ -20,3 +20,7 @@ const GroupSchema = new Schema({
 })
 
 module.exports = Group = mongoose.model('Group', GroupSchema)
+
+//creating a group
+//first user should appear
+//then add other people in this group

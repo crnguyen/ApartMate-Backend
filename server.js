@@ -29,5 +29,5 @@ app.use('/api/users' , users)
 
 
 app.listen(port, () => {
-    console.log(`Listening to the smooth sounds of ${port}`)
+    console.log(`Listening to the smooth sounds of ${port}`);
 })
